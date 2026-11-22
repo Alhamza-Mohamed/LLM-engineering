@@ -28,16 +28,13 @@ def search_products(query : str, min_price : int | None=None , max_price: int | 
         {"name":"CPU", "price":300, "product_id":2},
         {"name":"RAM", "price":200, "product_id":4},
     ]
-    product = [prod for prod in products 
+    products = [prod for prod in products 
             if query.lower() in prod["name"].lower() 
             and (max_price is None or prod["price"] <= max_price)
             and (min_price is None or prod["price"] >= min_price)
-            ]
-
-    if not product:
-        return f"{product} does not exist in the database"
+            ] # List comprehension return [] (empty) when there is no valid answer.
     
-    return product
+    return products
     
     
 
@@ -65,20 +62,48 @@ agent = create_agent(
     tools=[search_products, get_product_details]
     )
 
-user_query = input("Hello\n")
+
 
 from langchain_core.output_parsers import StrOutputParser
 
-agent_chain = agent | StrOutputParser()
+# agent_chain = agent | StrOutputParser()
 
-respond = agent_chain.invoke({
-    "messages":[{
-        "role":"user",
-        "content": user_query
-        }]
-})
+print ("Hello")
 
-print(respond)
+results = agent.batch(
+        [{
+        "messages":[{
+                "role":"user",
+                "content": "Do you have any GPUs?"
+                }]
+        },
+        {
+        "messages":[{
+                "role":"user",
+                "content": "Find me a GPU under $600."
+                }]
+        },
+        {
+        "messages":[{
+                "role":"user",
+                "content": "Find me a GPU under $600 and give me its manufacturer and specifications."
+                }]
+        },
+        {
+        "messages":[{
+                "role":"user",
+                "content": "Find me a CPU between $200 and $400 and give me its details."
+                }]
+        },
+    ]
+)
+for result in results:
+    for message in result["messages"]:
+        print(f"{message.__class__.__name__}:")
+        print(message)
+        print("-" * 50)
+    print("-" * 50)
+
 
 """
 Questions:
