@@ -119,8 +119,34 @@ Embed the full document through transformer first, then chunk the token embeddin
 Pros:
 
 - Maintain full document context.
-- Leverages long-context models 
+- Leverages long-context models.
 
 Cons:
 
-- More complex than standard chunking
+- More complex than standard chunking.
+
+## Hierarchial RAG
+
+Parent-child chunk relationships: Search small chunks for precision, return large parent chunks for context.
+
+Pros:
+
+- Balance precision (search small) with context (return big)
+
+Cons:
+
+- Requires parent-child database schema.
+
+## Self-reflecting RAG
+
+Self correcting search loop that perform initial search, the LLM grades relevance (on scale 1-5), if the score < 3, refine query and search again.
+
+Pros:
+
+- Self correcting.
+- Improve over time.
+
+Cons:
+
+- Highest latency (2-3 LLM calls).
+- Most expensive.
