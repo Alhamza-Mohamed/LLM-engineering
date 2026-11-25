@@ -69,3 +69,32 @@ Cons:
 - Expensive (1 LLM call per chunk).
 - Slower ingestion.
 
+## Query expansion
+
+Expands a single brief query into a more detailed, comprehensive version by adding context, related terms, and clarifying intent.  
+Uses an LLM with a system prompt that describes hwo to enrich the query while maintaining the original intent.
+
+Pros:
+
+- Improve retrieval precision by adding relevant context and specificity.
+
+Cons:
+
+- Extra LLM call adds latency.
+- May over-specify simple queries.
+
+## Multi-query RAG
+
+Generates multiple different query variations/perspectives with an LLM  (e.g., 3-4 variations), runs all searches concurrently, and deduplicates results.  
+Unlike query expansion which enriches one query, this creates multiple distinct phrasings to capture different angles.
+
+Pros:
+
+- Comprehensive coverage
+- Better recall an ambiguous queries.
+
+Cons:
+
+- 4x database queries (though parallelized).
+- Higher cost.
+
