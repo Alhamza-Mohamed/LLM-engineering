@@ -41,3 +41,31 @@ Cons:
 - More complex.
 - Less predictable behavior.
 
+## Knowledge graph
+
+Combines vector search with graph database (such as Neo4j or FalkorDB) to capture entity relationships.
+
+Pros:
+
+- Capture relationships that vector miss.
+- Great for Interconnected data.
+
+Cons:
+
+- Requires New4j setup, entity extraction and graph maintenance.
+- Slower and more expensive.
+
+## Contextual retrieval
+
+Anthropic's method: Adds document-level context to each chunk before embedding. LLM generates 1-2 sentences explaining what the chunk discusses in relation to the whole document.
+
+Pros:
+
+- 35-49% reduction in retrieval failures.
+- Chunks are self-contained.
+
+Cons:
+
+- Expensive (1 LLM call per chunk).
+- Slower ingestion.
+
