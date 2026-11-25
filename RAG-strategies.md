@@ -1,5 +1,23 @@
 # RAG strategies
 
+**Source:** <a href="https://www.youtube.com/watch?v=tLMViADvSNE&t=515s">Every RAG Strategy Explained</a>  
+
+## Outline
+
+- [RAG strategies](#rag-strategies)
+  - [Outline](#outline)
+  - [Re-ranking](#re-ranking)
+  - [Agentic RAG](#agentic-rag)
+  - [Knowledge graph](#knowledge-graph)
+  - [Contextual retrieval](#contextual-retrieval)
+  - [Query expansion](#query-expansion)
+  - [Multi-query RAG](#multi-query-rag)
+  - [Context-aware chunking](#context-aware-chunking)
+  - [Late chunking](#late-chunking)
+  - [Hierarchial RAG](#hierarchial-rag)
+  - [Self-reflecting RAG](#self-reflecting-rag)
+  - [Fine-tuned embeddings](#fine-tuned-embeddings)
+
 ## Re-ranking
 
 2 separate retrieval, first we retrieve large number of chunks from the vector database then use specialized re-ranker model to get the most relevant records among the retrieved chunks (top_n).
@@ -150,3 +168,16 @@ Cons:
 
 - Highest latency (2-3 LLM calls).
 - Most expensive.
+
+## Fine-tuned embeddings
+
+Train embedding models on domain-specific query-document pairs to improve retrieval accuracy for specialized domains (medical, legal, financial, etc.).
+
+Pros:
+
+- 5-10% accuracy gains.
+- Smaller models can outperform larger generic ones.
+
+Cons:
+
+- Requires training data, infrastructure, ongoing maintenance. 
