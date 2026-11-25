@@ -98,3 +98,29 @@ Cons:
 - 4x database queries (though parallelized).
 - Higher cost.
 
+## Context-aware chunking
+
+Intelligent document splitting that uses semantic similarity and document structure analysis to find natural chunk boundaries, rather than naive fixed-size splitting.
+
+Pros:
+
+- Free.
+- Fast.
+- Maintains document structure.
+
+Cons:
+
+- Slightly more complex than naive chunking.
+
+## Late chunking
+
+Embed the full document through transformer first, then chunk the token embeddings (not the text). preserve full document context in each chunk's embedding.
+
+Pros:
+
+- Maintain full document context.
+- Leverages long-context models 
+
+Cons:
+
+- More complex than standard chunking
