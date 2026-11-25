@@ -1,7 +1,5 @@
 # RAG strategies
 
-**Source:** <a href="https://www.youtube.com/watch?v=tLMViADvSNE&t=515s">Every RAG Strategy Explained</a>  
-
 ## Outline
 
 - [RAG strategies](#rag-strategies)
@@ -17,6 +15,7 @@
   - [Hierarchial RAG](#hierarchial-rag)
   - [Self-reflecting RAG](#self-reflecting-rag)
   - [Fine-tuned embeddings](#fine-tuned-embeddings)
+  - [External sources](#external-sources)
 
 ## Re-ranking
 
@@ -180,4 +179,10 @@ Pros:
 
 Cons:
 
-- Requires training data, infrastructure, ongoing maintenance. 
+- Requires training data, infrastructure, ongoing maintenance.
+
+## External sources
+
+**Video source:** <a href="https://www.youtube.com/watch?v=tLMViADvSNE&t=515s">Every RAG Strategy Explained</a>
+**GitHub repo:** <a href="https://github.com/coleam00/ottomator-agents/tree/main/all-rag-strategies">Advanced RAG Strategies - Complete Guide</a>
+
