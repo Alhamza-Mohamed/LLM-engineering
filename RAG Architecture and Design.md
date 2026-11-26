@@ -1,23 +1,26 @@
-# RAG strategies
+# RAG Architecture and Design
 
 ## Outline
 
-- [RAG strategies](#rag-strategies)
+- [RAG Architecture and Design](#rag-architecture-and-design)
   - [Outline](#outline)
-  - [Re-ranking](#re-ranking)
-  - [Agentic RAG](#agentic-rag)
-  - [Knowledge graph](#knowledge-graph)
-  - [Contextual retrieval](#contextual-retrieval)
-  - [Query expansion](#query-expansion)
-  - [Multi-query RAG](#multi-query-rag)
-  - [Context-aware chunking](#context-aware-chunking)
-  - [Late chunking](#late-chunking)
-  - [Hierarchial RAG](#hierarchial-rag)
-  - [Self-reflecting RAG](#self-reflecting-rag)
-  - [Fine-tuned embeddings](#fine-tuned-embeddings)
+  - [RAG strategies](#rag-strategies)
+    - [Re-ranking](#re-ranking)
+    - [Agentic RAG](#agentic-rag)
+    - [Knowledge graph](#knowledge-graph)
+    - [Contextual retrieval](#contextual-retrieval)
+    - [Query expansion](#query-expansion)
+    - [Multi-query RAG](#multi-query-rag)
+    - [Context-aware chunking](#context-aware-chunking)
+    - [Late chunking](#late-chunking)
+    - [Hierarchial RAG](#hierarchial-rag)
+    - [Self-reflecting RAG](#self-reflecting-rag)
+    - [Fine-tuned embeddings](#fine-tuned-embeddings)
   - [External sources](#external-sources)
 
-## Re-ranking
+## RAG strategies
+
+### Re-ranking
 
 2 separate retrieval, first we retrieve large number of chunks from the vector database then use specialized re-ranker model to get the most relevant records among the retrieved chunks (top_n).
 
@@ -31,7 +34,7 @@ Cons:
 - Slightly slower than pure vector search.
 - Uses more compute (as we use extra model for the re-ranking).
 
-## Agentic RAG
+### Agentic RAG
 
 Agentic RAG is an agent that uses RAG as tools interacting with it.  
 It have more capabilities like the ability of searching using different vector database based on the user query, in addition to having other tools that can search the knowledge in other way.  
@@ -58,7 +61,7 @@ Cons:
 - More complex.
 - Less predictable behavior.
 
-## Knowledge graph
+### Knowledge graph
 
 Combines vector search with graph database (such as Neo4j or FalkorDB) to capture entity relationships.
 
@@ -72,7 +75,7 @@ Cons:
 - Requires New4j setup, entity extraction and graph maintenance.
 - Slower and more expensive.
 
-## Contextual retrieval
+### Contextual retrieval
 
 Anthropic's method: Adds document-level context to each chunk before embedding. LLM generates 1-2 sentences explaining what the chunk discusses in relation to the whole document.
 
@@ -86,7 +89,7 @@ Cons:
 - Expensive (1 LLM call per chunk).
 - Slower ingestion.
 
-## Query expansion
+### Query expansion
 
 Expands a single brief query into a more detailed, comprehensive version by adding context, related terms, and clarifying intent.  
 Uses an LLM with a system prompt that describes hwo to enrich the query while maintaining the original intent.
@@ -100,7 +103,7 @@ Cons:
 - Extra LLM call adds latency.
 - May over-specify simple queries.
 
-## Multi-query RAG
+### Multi-query RAG
 
 Generates multiple different query variations/perspectives with an LLM  (e.g., 3-4 variations), runs all searches concurrently, and deduplicates results.  
 Unlike query expansion which enriches one query, this creates multiple distinct phrasings to capture different angles.
@@ -115,7 +118,7 @@ Cons:
 - 4x database queries (though parallelized).
 - Higher cost.
 
-## Context-aware chunking
+### Context-aware chunking
 
 Intelligent document splitting that uses semantic similarity and document structure analysis to find natural chunk boundaries, rather than naive fixed-size splitting.
 
@@ -129,7 +132,7 @@ Cons:
 
 - Slightly more complex than naive chunking.
 
-## Late chunking
+### Late chunking
 
 Embed the full document through transformer first, then chunk the token embeddings (not the text). preserve full document context in each chunk's embedding.
 
@@ -142,7 +145,7 @@ Cons:
 
 - More complex than standard chunking.
 
-## Hierarchial RAG
+### Hierarchial RAG
 
 Parent-child chunk relationships: Search small chunks for precision, return large parent chunks for context.
 
@@ -154,7 +157,7 @@ Cons:
 
 - Requires parent-child database schema.
 
-## Self-reflecting RAG
+### Self-reflecting RAG
 
 Self correcting search loop that perform initial search, the LLM grades relevance (on scale 1-5), if the score < 3, refine query and search again.
 
@@ -168,7 +171,7 @@ Cons:
 - Highest latency (2-3 LLM calls).
 - Most expensive.
 
-## Fine-tuned embeddings
+### Fine-tuned embeddings
 
 Train embedding models on domain-specific query-document pairs to improve retrieval accuracy for specialized domains (medical, legal, financial, etc.).
 
@@ -183,6 +186,6 @@ Cons:
 
 ## External sources
 
-**Video source:** <a href="https://www.youtube.com/watch?v=tLMViADvSNE&t=515s">Every RAG Strategy Explained</a>
+**Video source:** <a href="https://www.youtube.com/watch?v=tLMViADvSNE&t=515s">Every RAG Strategy Explained</a>  
 **GitHub repo:** <a href="https://github.com/coleam00/ottomator-agents/tree/main/all-rag-strategies">Advanced RAG Strategies - Complete Guide</a>
 
